@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import HTTPException
 from unittest.mock import patch
 from preliminary.simple_api import _open_vid_or_404, VIDEOS
+from preliminary.library_basics import CodingVideo
 
 
 class TestVideoPlayback(unittest.TestCase):
@@ -17,19 +18,7 @@ class TestVideoPlayback(unittest.TestCase):
         self.assertEqual(response.exception.status_code,404)
         self.assertEqual(response.exception.detail,"Video not found")
 
-    def test():
-        coding_vid = CodingVideo("../resources/oop.mp4")
-        print(coding_vid)
-
-        # getting frame from video (no OCR)
-        coding_vid.get_image_as_bytes(42)
-        coding_vid.save_as_image(42)
-
-        # getting frame, and 'OCRing' it
-        print(coding_vid.get_text_from_frame_at_time(42))
 
 
-#if __name__ == '__main__':
-    #unittest.main()
 if __name__ == '__main__':
-    test()
+    unittest.main()
