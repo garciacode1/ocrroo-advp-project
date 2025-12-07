@@ -25,7 +25,9 @@ if system == "Windows":
 elif system == "Linux":
     pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
-VID_PATH = Path("resources/oop.mp4")
+"""build paths inside the project directory"""
+BASE_PATH = Path(__file__).resolve().parent.parent
+
 
 class CodingVideo:
     capture: cv2.VideoCapture
@@ -121,16 +123,6 @@ class CodingVideo:
       with open(out, "wb") as f:
           f.write(png_bytes)
 
-def test():
-    coding_vid = CodingVideo("resources/oop.mp4")
-    print(coding_vid)
-    
-    #getting frame from video (no OCR)
-    coding_vid.get_image_as_bytes(42)
-    coding_vid.save_as_image(42)
 
-    # getting frame, and 'OCRing' it 
-    print(coding_vid.get_text_from_frame_at_time(42))
 
-if __name__ == '__main__':
-    test()
+
