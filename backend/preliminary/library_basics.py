@@ -28,24 +28,22 @@ elif system == "Linux":
 """build paths inside the project directory"""
 BASE_PATH = Path(__file__).resolve().parent.parent
 
-
 def path_checker(original_function):
     """decorator to fix file path for videos"""
-
-    def new_function(self, video_path):
+    def new_function(video_path):
         video_path = Path(video_path)
         if not video_path.is_absolute():
             video_path = BASE_PATH / video_path
         video_path = video_path.resolve()
         if not video_path.is_file():
             raise FileNotFoundError(f"Video not found: {video_path}")
-        return original_function(self, video_path)
+        return original_function(video_path)
     return new_function
 
 
 class CodingVideo:
     capture: cv2.VideoCapture
-
+    @path_checker
     def __init__(self, video: Path | str):
         self.capture = cv2.VideoCapture(str(video))
         if not self.capture.isOpened():
