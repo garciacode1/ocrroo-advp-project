@@ -26,7 +26,7 @@ elif system == "Linux":
     pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 """build paths inside the project directory"""
-BASE_PATH = Path(__file__).resolve().parent.parent
+VID_PATH = Path(__file__).resolve().parent.parent
 
 
 class CodingVideo:

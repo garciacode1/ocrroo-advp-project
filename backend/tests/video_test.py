@@ -3,7 +3,7 @@ from pathlib import Path
 from fastapi import HTTPException
 from unittest.mock import patch
 from preliminary.simple_api import _open_vid_or_404, VIDEOS
-from preliminary.library_basics import CodingVideo
+
 
 
 class TestVideoPlayback(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestVideoPlayback(unittest.TestCase):
         mock_path = Path("/this/is/my/fake/path.mp4")
         VIDEOS["missing_file"] = mock_path
 
-        with patch.object(Path,"is_file", return_value=False):
+        with patch.object("is_file", return_value=False):
             with self.assertRaises(HTTPException) as response:
                 _open_vid_or_404("missing_file")
 
