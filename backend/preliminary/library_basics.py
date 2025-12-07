@@ -26,7 +26,21 @@ elif system == "Linux":
     pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 """build paths inside the project directory"""
-VID_PATH = Path(__file__).resolve().parent.parent
+BASE_PATH = Path(__file__).resolve().parent.parent
+
+
+def path_checker(original_function):
+    """decorator to fix file path for videos"""
+
+    def new_function(self, video_path):
+        video_path = Path(video_path)
+        if not video_path.is_absolute():
+            video_path = BASE_PATH / video_path
+        video_path = video_path.resolve()
+        if not video_path.is_file():
+            raise FileNotFoundError(f"Video not found: {video_path}")
+        return original_function(self, video_path)
+    return new_function
 
 
 class CodingVideo:
@@ -120,3 +134,6 @@ class CodingVideo:
         out.parent.mkdir(parents=True, exist_ok=True)
         with open(out, "wb") as f:
             f.write(png_bytes)
+
+if __name__ == '__main__':
+    pass
