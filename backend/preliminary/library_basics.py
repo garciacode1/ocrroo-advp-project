@@ -132,6 +132,3 @@ class CodingVideo:
         out.parent.mkdir(parents=True, exist_ok=True)
         with open(out, "wb") as f:
             f.write(png_bytes)
-
-if __name__ == '__main__':
-    pass

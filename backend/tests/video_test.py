@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 from fastapi import HTTPException
 from unittest.mock import patch
-from preliminary.simple_api import _open_vid_or_404, VIDEOS
+from backend.preliminary.simple_api import _open_vid_or_404, VIDEOS
 
 
 
