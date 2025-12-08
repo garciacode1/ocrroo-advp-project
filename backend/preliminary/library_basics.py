@@ -29,8 +29,14 @@ elif system == "Linux":
 BASE_PATH = Path(__file__).resolve().parent.parent
 
 def path_checker(original_function):
-    """decorator to fix file path for videos"""
-    def new_function(video_path):
+    """decorator to validate and normalise a video path
+        1. provided path is converted into a pathlib string
+        2. wrapped function always receives an absolute and exiting path
+        PARAMETERS: inner function receives corrected video path,
+        RETURNS: new function that checks path first, then call inner one.
+        RAISES: FileNotFound if final path doesnt point to existing file  """
+
+    def inner_function(video_path):
         video_path = Path(video_path)
         if not video_path.is_absolute():
             video_path = BASE_PATH / video_path
@@ -38,8 +44,7 @@ def path_checker(original_function):
         if not video_path.is_file():
             raise FileNotFoundError(f"Video not found: {video_path}")
         return original_function(video_path)
-    return new_function
-
+    return inner_function
 
 class CodingVideo:
     capture: cv2.VideoCapture
